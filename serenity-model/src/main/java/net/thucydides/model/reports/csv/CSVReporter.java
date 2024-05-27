@@ -1,6 +1,6 @@
 package net.thucydides.model.reports.csv;
 
-import au.com.bytecode.opencsv.CSVWriter;
+import com.opencsv.CSVWriter;
 import com.google.common.base.Splitter;
 import net.serenitybdd.model.collect.NewList;
 import net.thucydides.model.ThucydidesSystemProperty;

@@ -43,7 +43,7 @@
         <junit.version>4.13.2</junit.version>
         <groovy.version>4.0.21</groovy.version>
         <spock.version>2.4-M4-groovy-4.0</spock.version>
-        <byte-buddy.version>1.14.26</byte-buddy.version>
+        <byte-buddy.version>1.14.16</byte-buddy.version>
         <guava.version>33.2.0-jre</guava.version>
         <hamcrest.version>2.2</hamcrest.version>
         <slf4j.version>2.0.13</slf4j.version>
@@ -75,7 +75,7 @@
         <awaitility.version>4.2.1</awaitility.version>
         <freemarker.version>2.3.32</freemarker.version>
         <appium.version>9.2.2</appium.version>
-        <fluentlenium.version>5.0.4</fluentlenium.version>
+        <fluentlenium.version>0.10.2</fluentlenium.version>
         <htmlunit.version>4.1.0</htmlunit.version>
         <filters.version>2.0.235-1</filters.version>
         <ngwebdriver.version>1.2</ngwebdriver.version>
@@ -89,7 +89,7 @@
         <thymeleaf.version>3.1.2.RELEASE</thymeleaf.version>
         <javassist.version>3.30.2-GA</javassist.version>
         <jackson.version>2.17.1</jackson.version>
-        <xchart.version>3.8.8</xchart.version>
+        <xchart.version>3.5.2</xchart.version>
         <ehcache.version>3.10.8</ehcache.version>
         <!-- Kotlin config -->
         <kotlin.version>2.0.0</kotlin.version>
@@ -365,9 +365,15 @@
                 <version>${appium.version}</version>
             </dependency>
             <dependency>
-                <groupId>net.sf.opencsv</groupId>
+                <groupId>com.opencsv</groupId>
                 <artifactId>opencsv</artifactId>
                 <version>${opencsv.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-collections</groupId>
+                        <artifactId>commons-collections</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.typesafe</groupId>
@@ -622,6 +628,18 @@
                 <artifactId>nexus-staging-maven-plugin</artifactId>
                 <version>1.6.13</version>
                 <extensions>true</extensions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven</groupId>
+                        <artifactId>maven-compat</artifactId>
+                        <version>3.9.7</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.maven</groupId>
+                        <artifactId>maven-core</artifactId>
+                        <version>3.9.7</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>default-deploy</id>
