@@ -1,8 +1,9 @@
 package net.thucydides.core.steps.stepdata;
 
-import com.opencsv.CSVParser;
+import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.google.common.base.Preconditions;
+import com.opencsv.CSVReaderBuilder;
 import com.opencsv.ICSVParser;
 import com.opencsv.exceptions.CsvException;
 
@@ -39,7 +40,7 @@ public class CSVTestDataSource implements TestDataSource {
     private static final Logger LOGGER = LoggerFactory.getLogger(CSVTestDataSource.class);
     FilePathParser testDataSourcePath = new FilePathParser(SystemEnvironmentVariables.currentEnvironmentVariables() );
 
-    public CSVTestDataSource(final List<String> paths, final char separatorValue, final char quotechar, final char escape, final int skipLines) throws IOException {
+    public CSVTestDataSource(final List<String> paths, final char separatorValue, final char quotechar, final char escape, final int skipLines) {
         this.separator = separatorValue;
         this.quotechar = quotechar;
         this.escape = escape;
@@ -69,19 +70,19 @@ public class CSVTestDataSource implements TestDataSource {
         return csvDataRows;
     }
 
-    public CSVTestDataSource(final String path) throws IOException {
+    public CSVTestDataSource(final String path) {
         this(NewList.of(path), ICSVParser.DEFAULT_SEPARATOR, ICSVParser.DEFAULT_QUOTE_CHARACTER, ICSVParser.DEFAULT_ESCAPE_CHARACTER, CSVReader.DEFAULT_SKIP_LINES);
     }
 
-    public CSVTestDataSource(final List<String> paths, final char separatorValue) throws IOException {
+    public CSVTestDataSource(final List<String> paths, final char separatorValue) {
         this(paths, separatorValue, ICSVParser.DEFAULT_QUOTE_CHARACTER, ICSVParser.DEFAULT_ESCAPE_CHARACTER, CSVReader.DEFAULT_SKIP_LINES);
     }
 
-    public CSVTestDataSource(final String path, final char separatorValue) throws IOException {
+    public CSVTestDataSource(final String path, final char separatorValue) {
         this(NewList.of(path), separatorValue, ICSVParser.DEFAULT_QUOTE_CHARACTER, ICSVParser.DEFAULT_ESCAPE_CHARACTER, CSVReader.DEFAULT_SKIP_LINES);
     }
 
-    public CSVTestDataSource(final String path, final char separatorValue, final char quotechar, final char escape) throws IOException {
+    public CSVTestDataSource(final String path, final char separatorValue, final char quotechar, final char escape) {
         this(NewList.of(path), separatorValue, quotechar, escape, CSVReader.DEFAULT_SKIP_LINES);
     }
 
@@ -117,13 +118,14 @@ public class CSVTestDataSource implements TestDataSource {
     protected List<String[]> getCSVDataFrom(final Reader testDataReader) throws IOException, CsvException {
 
         List<String[]> rows;
-        try (CSVReader reader = new CSVReader(testDataReader)) {
+        ICSVParser icsvParser = new CSVParserBuilder().withSeparator(separator).withQuoteChar(quotechar).withEscapeChar(escape).build();
+        try (CSVReader reader = new CSVReaderBuilder(testDataReader).withCSVParser(icsvParser).withSkipLines(skipLines).build()) {
             rows = reader.readAll();
         }
         return rows;
     }
 
-    protected List<Map<String, String>> loadTestDataFrom(List<String[]> rows) throws IOException {
+    protected List<Map<String, String>> loadTestDataFrom(List<String[]> rows) {
 
         List<Map<String, String>> loadedData = new ArrayList<>();
         String[] titleRow = rows.get(0);

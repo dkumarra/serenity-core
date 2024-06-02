@@ -1,6 +1,5 @@
 package net.thucydides.core.csv;
 
-import com.opencsv.CSVParser;
 import net.thucydides.core.steps.stepdata.CSVTestDataSource;
 import net.thucydides.core.steps.stepdata.TestDataSource;
 import net.thucydides.core.util.ExtendedTemporaryFolder;
@@ -15,8 +14,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
-
-import com.opencsv.ICSVParser;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -322,7 +319,7 @@ public class WhenLoadingTestDataFromACSVFile {
         //  name; address;        phone
         //  Bill; 10 main street, Bill\nVille; 123456789
 
-        TestDataSource testdata = new CSVTestDataSource(testDataFile.getAbsolutePath(),';', ICSVParser.DEFAULT_QUOTE_CHARACTER, '"'); // '"' to handle '\n'
+        TestDataSource testdata = new CSVTestDataSource(testDataFile.getAbsolutePath(),';', '\'', '"'); // '"' to handle '\n'
 
         List<Map<String,String>> loadedData = testdata.getData();
         Map<String,String> row = loadedData.get(0);
