@@ -42,4 +42,4 @@ jobs:
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
           LT_USERNAME: ${{ secrets.LT_USERNAME }}
           LT_ACCESS_KEY: ${{ secrets.LT_ACCESS_KEY }}
-        run: cd serenity-smoketests && mvn verify -Denvironment=chrome
+        run: cd serenity-smoketests && mvn -B verify -Denvironment=chrome
