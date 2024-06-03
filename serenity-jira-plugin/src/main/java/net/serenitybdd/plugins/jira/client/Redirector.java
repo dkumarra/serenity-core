@@ -1,7 +1,7 @@
 package net.serenitybdd.plugins.jira.client;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.core.Response;
 
 /**
  * A description goes here.

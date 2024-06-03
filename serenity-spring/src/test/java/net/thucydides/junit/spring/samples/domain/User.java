@@ -1,6 +1,6 @@
 package net.thucydides.junit.spring.samples.domain;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="USER")

@@ -14,11 +14,11 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<serenity.version>2.0.69</serenity.version>
+		<serenity.version>4.1.15-SNAPSHOT</serenity.version>
 		<webdriver.driver>appium</webdriver.driver>
-		<serenity.maven.version>2.0.69</serenity.maven.version>
-		<serenity.cucumber.version>1.0.21</serenity.cucumber.version>
-		<cucumber.version>4.2.0</cucumber.version>
+		<serenity.maven.version>4.1.15-SNAPSHOT</serenity.maven.version>
+		<serenity.cucumber.version>4.1.15-SNAPSHOT</serenity.cucumber.version>
+		<cucumber.version>7.18.0</cucumber.version>
 		<serenity.test.root></serenity.test.root>
 	</properties>
 
@@ -83,13 +83,13 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.7</version>
+			<version>2.0.13</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.13.1</version>
+			<version>4.13.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -110,14 +110,14 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.19.1</version>
+				<version>3.2.5</version>
 				<configuration>
 					<skip>true</skip>
 				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>3.0.0-M3</version>
+				<version>3.2.5</version>
 				<configuration>
 					<includes>
 						<include>**/*Test.java</include>
@@ -142,7 +142,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.2</version>
+				<version>3.13.0</version>
 				<configuration>
 					<source>11</source>
 					<target>11</target>
@@ -174,7 +174,7 @@
 				<plugins>
 					<plugin>
 						<artifactId>maven-failsafe-plugin</artifactId>
-						<version>3.0.0-M3</version>
+						<version>3.2.5</version>
 						<configuration>
 							<includes>
 								<include>**/cucumber/RecordNotes.java</include>

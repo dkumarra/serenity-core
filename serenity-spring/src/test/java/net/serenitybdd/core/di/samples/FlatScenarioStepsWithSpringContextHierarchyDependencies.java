@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 @ContextHierarchy(@ContextConfiguration(locations = "/spring/config.xml"))
 public class FlatScenarioStepsWithSpringContextHierarchyDependencies extends ScenarioSteps {
