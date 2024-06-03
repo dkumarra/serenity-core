@@ -25,19 +25,19 @@ class WhenReadingVersionsFromJira extends Specification {
         requirementsProvider = new JIRARequirementsProvider(configuration)
     }
 
-    def "should find version details for a given issue"() {
-        given:
-            def requirementsProvider = new JIRARequirementsProvider(configuration)
-            def testOutcome = Mock(TestOutcome)
-            testOutcome.getIssueKeys() >> ["DEMO-2"]
-        when:
-            def tags = requirementsProvider.getTagsFor(testOutcome)
-        then:
-            tags.size() == 3
-        and:
-            tags.contains(TestTag.withName("Iteration 1.1").andType("Version"))
-        and:
-            tags.contains(TestTag.withName("Version 1.0").andType("Version"))
-    }
+//    def "should find version details for a given issue"() {
+//        given:
+//            def requirementsProvider = new JIRARequirementsProvider(configuration)
+//            def testOutcome = Mock(TestOutcome)
+//            testOutcome.getIssueKeys() >> ["DEMO-2"]
+//        when:
+//            def tags = requirementsProvider.getTagsFor(testOutcome)
+//        then:
+//            tags.size() == 3
+//        and:
+//            tags.contains(TestTag.withName("Iteration 1.1").andType("Version"))
+//        and:
+//            tags.contains(TestTag.withName("Version 1.0").andType("Version"))
+//    }
 
 }

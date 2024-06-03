@@ -45,4 +45,4 @@ jobs:
           LT_USERNAME: ${{ secrets.LT_USERNAME }}
           LT_ACCESS_KEY: ${{ secrets.LT_ACCESS_KEY }}
         with:
-          run: mvn clean verify
+          run: mvn -B clean verify

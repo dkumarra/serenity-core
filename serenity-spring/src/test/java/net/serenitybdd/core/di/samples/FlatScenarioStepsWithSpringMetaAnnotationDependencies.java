@@ -11,7 +11,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.junit.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 @MetaContextConfiguration
 public class FlatScenarioStepsWithSpringMetaAnnotationDependencies extends ScenarioSteps {

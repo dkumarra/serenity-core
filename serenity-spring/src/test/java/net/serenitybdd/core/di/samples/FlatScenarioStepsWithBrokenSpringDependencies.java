@@ -11,7 +11,7 @@ import org.junit.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 @ContextConfiguration(locations = "/spring/config.xml")
 public class FlatScenarioStepsWithBrokenSpringDependencies extends ScenarioSteps {

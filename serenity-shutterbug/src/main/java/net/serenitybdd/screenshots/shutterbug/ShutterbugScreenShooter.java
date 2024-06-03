@@ -2,7 +2,7 @@ package net.serenitybdd.screenshots.shutterbug;
 
 import com.assertthat.selenium_shutterbug.core.PageSnapshot;
 import com.assertthat.selenium_shutterbug.core.Shutterbug;
-import com.assertthat.selenium_shutterbug.utils.web.ScrollStrategy;
+import com.assertthat.selenium_shutterbug.core.Capture;
 import net.serenitybdd.core.photography.PhotoLens;
 import net.serenitybdd.core.photography.ScreenShooter;
 import net.serenitybdd.core.photography.WebDriverPhotoLens;
@@ -35,7 +35,7 @@ public class ShutterbugScreenShooter implements ScreenShooter {
 
     @Override
     public byte[] takeScreenshot() throws IOException {
-        ScrollStrategy scrollStrategy = ScrollStrategy.valueOf(
+        Capture capture = Capture.valueOf(
                 environmentVariables.getValue("shutterbug.scrollstrategy","WHOLE_PAGE")
         );
         int betweenScrollTimeout = Integer.parseInt(
@@ -44,7 +44,7 @@ public class ShutterbugScreenShooter implements ScreenShooter {
         boolean useDevicePixelRatio = Boolean.parseBoolean(
                 environmentVariables.getValue("shutterbug.useDevicePixelRatio","true")
         );
-        PageSnapshot snapshot = Shutterbug.shootPage(driver, scrollStrategy, betweenScrollTimeout, useDevicePixelRatio);
+        PageSnapshot snapshot = Shutterbug.shootPage(driver, capture, betweenScrollTimeout, useDevicePixelRatio);
         return asByteArray(snapshot.getImage());
     }
 

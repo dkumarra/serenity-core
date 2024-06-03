@@ -1,8 +1,11 @@
 package net.serenitybdd.junit5.datadriven;
 
-import au.com.bytecode.opencsv.CSVParser;
-import au.com.bytecode.opencsv.CSVReader;
+import com.opencsv.CSVParser;
+import com.opencsv.CSVReader;
 import com.google.common.base.Preconditions;
+import com.opencsv.ICSVParser;
+import com.opencsv.exceptions.CsvException;
+
 import net.serenitybdd.model.collect.NewList;
 import net.thucydides.model.configuration.FilePathParser;
 import net.thucydides.core.csv.FailedToInitializeTestData;
@@ -59,7 +62,7 @@ public class JUnit5CSVTestDataSource implements TestDataSource {
             for(String instantiatedPath : instantiatedPaths) {
                 try (Reader reader = getDataFileFor(instantiatedPath)) {
                     csvDataRows.addAll(getCSVDataFrom(reader));
-                } catch (IOException e) {
+                } catch (IOException | CsvException e) {
                     LOGGER.error("Could not read test data file from {}", instantiatedPath, e);
                 }
             }
@@ -68,15 +71,15 @@ public class JUnit5CSVTestDataSource implements TestDataSource {
     }
 
     public JUnit5CSVTestDataSource(final String path) throws IOException {
-        this(NewList.of(path), CSVParser.DEFAULT_SEPARATOR, CSVParser.DEFAULT_QUOTE_CHARACTER, CSVParser.DEFAULT_ESCAPE_CHARACTER, CSVReader.DEFAULT_SKIP_LINES);
+        this(NewList.of(path), ICSVParser.DEFAULT_SEPARATOR, ICSVParser.DEFAULT_QUOTE_CHARACTER, ICSVParser.DEFAULT_ESCAPE_CHARACTER, CSVReader.DEFAULT_SKIP_LINES);
     }
 
     public JUnit5CSVTestDataSource(final List<String> paths, final char separatorValue) throws IOException {
-        this(paths, separatorValue, CSVParser.DEFAULT_QUOTE_CHARACTER, CSVParser.DEFAULT_ESCAPE_CHARACTER, CSVReader.DEFAULT_SKIP_LINES);
+        this(paths, separatorValue, ICSVParser.DEFAULT_QUOTE_CHARACTER, ICSVParser.DEFAULT_ESCAPE_CHARACTER, CSVReader.DEFAULT_SKIP_LINES);
     }
 
     public JUnit5CSVTestDataSource(final String path, final char separatorValue) throws IOException {
-        this(NewList.of(path), separatorValue, CSVParser.DEFAULT_QUOTE_CHARACTER, CSVParser.DEFAULT_ESCAPE_CHARACTER, CSVReader.DEFAULT_SKIP_LINES);
+        this(NewList.of(path), separatorValue, ICSVParser.DEFAULT_QUOTE_CHARACTER, ICSVParser.DEFAULT_ESCAPE_CHARACTER, CSVReader.DEFAULT_SKIP_LINES);
     }
 
     public JUnit5CSVTestDataSource(final String path, final char separatorValue, final char quotechar, final char escape) throws IOException {
@@ -115,10 +118,10 @@ public class JUnit5CSVTestDataSource implements TestDataSource {
         return file.exists();
     }
 
-    protected List<String[]> getCSVDataFrom(final Reader testDataReader) throws IOException {
+    protected List<String[]> getCSVDataFrom(final Reader testDataReader) throws IOException, CsvException {
 
         List<String[]> rows;
-        try (CSVReader reader = new CSVReader(testDataReader, separator, quotechar, escape, skipLines)) {
+        try (CSVReader reader = new CSVReader(testDataReader)) {
             rows = reader.readAll();
         }
         return rows;
@@ -156,7 +159,7 @@ public class JUnit5CSVTestDataSource implements TestDataSource {
         for(String instantiatedPath : instantiatedPaths) {
             try (Reader reader = getDataFileFor(instantiatedPath)) {
                 data.addAll(loadTestDataFrom(getCSVDataFrom(reader)));
-            } catch (IOException e) {
+            } catch (IOException | CsvException e) {
                 LOGGER.error("Could not read test data file from {}", instantiatedPath, e);
             }
         }

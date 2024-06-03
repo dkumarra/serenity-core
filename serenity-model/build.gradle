@@ -35,7 +35,6 @@ dependencies {
     implementation("net.sourceforge.jexcelapi:jxl:${jexcelapiVersion}") {
         exclude group: 'log4j', module: 'log4j'
     }
-    implementation "org.apache.groovy:groovy:${groovyVersion}"
     implementation "net.bytebuddy:byte-buddy:${byteBuddyVersion}"
     implementation "net.bytebuddy:byte-buddy-agent:${byteBuddyVersion}"
     implementation "org.objenesis:objenesis:${objenesisVersion}"

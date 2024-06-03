@@ -11,7 +11,7 @@
     <name>Serenity Shutterbug 0.9.5 integration</name>
 
     <properties>
-        <shutterbug.version>0.9.5</shutterbug.version>
+        <shutterbug.version>1.6</shutterbug.version>
     </properties>
     <dependencies>
         <dependency>
@@ -33,7 +33,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.30</version>
+            <version>1.18.32</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -52,4 +52,11 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <repositories>
+        <repository>
+            <id>maven_central</id>
+            <name>Maven Central</name>
+            <url>https://repo.maven.apache.org/maven2/</url>
+        </repository>
+    </repositories>
 </project>
