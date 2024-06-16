@@ -32,6 +32,7 @@ import net.thucydides.model.domain.Rule;
 import net.thucydides.model.domain.*;
 import net.thucydides.model.reports.ReportService;
 import net.thucydides.model.requirements.FeatureFilePath;
+import net.thucydides.model.requirements.model.cucumber.InvalidFeatureFileException;
 import net.thucydides.model.screenshots.ScreenshotAndHtmlSource;
 import net.thucydides.core.steps.*;
 import net.thucydides.core.steps.events.*;
@@ -435,7 +436,6 @@ public class SerenityReporterParallel implements Plugin, ConcurrentEventListener
     }
 
     private boolean noAnnotatedResultIdDefinedFor(TestCaseFinished event) {
-        //BaseStepListener baseStepListener = getStepEventBus(event.getTestCase().getUri()).getBaseStepListener();
         BaseStepListener baseStepListener = getStepEventBus(event.getTestCase().getUri()).getBaseStepListener();
         return (baseStepListener.getTestOutcomes().isEmpty() || (latestOf(baseStepListener.getTestOutcomes()).getAnnotatedResult() == null));
     }
@@ -450,11 +450,12 @@ public class SerenityReporterParallel implements Plugin, ConcurrentEventListener
         TestSourcesModel.AstNode mainAstNode = featureLoader.getAstNode(featurePath, event.getTestCase().getLocation().getLine());
         Scenario currentScenarioDefinition = TestSourcesModel.getScenarioDefinition(mainAstNode);
         Optional<Feature> currentFeature = featureFrom(featurePath);
+        if (currentFeature.isEmpty()) {
+            throw new InvalidFeatureFileException("Unable to run scenario '" + event.getTestCase().getName() + "': No feature name found in " + featurePath);
+        }
         String scenarioId = scenarioIdFrom(currentFeature.get().getName(), TestSourcesModel.convertToId(currentScenarioDefinition.getName()));
         LOGGER.debug("SRP:handleTestStepStarted " + " " + event.getTestCase().getUri() + " " + Thread.currentThread()
                 + " " + event.getTestCase().getId() + " at line " + event.getTestCase().getLocation().getLine());
-
-        // Broadcaster.getEventBus().register();
 
         StepDefinitionAnnotations.setScreenshotPreferencesTo(
                 StepDefinitionAnnotationReader
